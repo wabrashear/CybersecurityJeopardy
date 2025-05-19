@@ -1,0 +1,26 @@
+category,points,clue,response
+GenCyber Concepts,100,This concept uses the strategy of putting yourself inside the mindset of a potential cybersecurity attacker.,What is Think Like an Adversary?
+GenCyber Concepts,200,The concept involves a comprehensive strategy of including multiple layers of security within a system.,What is Defense in Depth?
+GenCyber Concepts,300,"This conept requires that information is not disclosed to individuals, devices, or processes unless they have been authorized to do so.",What is Confidentiality?
+GenCyber Concepts,400,This concept requires that information or a component of a system has not been modified or destroyed in an unauthorized manner.,What is Integrity?
+GenCyber Concepts,500,This concept requires the design of information and security systems to be configured and operated as simply as possible.,What is Keep it Simple?
+Realworld Attacks,100,This type of attack involves flooding a target with internet traffic in an attempt to prevent actual users from being able to access online services and sites.,What is a DDoS attack?
+Realworld Attacks,200,This type of attack is a digital form of social engineering designed to deceive individuals into providing sensitive information.,What is phishing?
+Realworld Attacks,300,Software that compromises a system by performing some unauthorized function or process.,What is malware?
+Realworld Attacks,400,Malicious software that restricts a user's access to their own data until compensate or appease the attacker.,What is ransomware?
+Realworld Attacks,500,A type of spyware software that records every keystroke on a computer's keyboard.,What is a Keylogger?
+Know Your Terms,100,A computer connected to the internet with software written to perform tasks under the control of a remote administrator or rules setforth by the administrator.,What is a bot?
+Know Your Terms,200,The science concerning the principles and mathematical techniques used to convert plain text into encrypted text.,What is cryptography?
+Know Your Terms,300,This computer or network component controls and monitors incoming and outgoing traffic restricting access to the system to only those with the proper credentials.,What is a firewall?
+Know Your Terms,400,This process involves transforming plain text into ciphertext.,What is encryption?
+Know Your Terms,500,A program that monitors a computer or network to detect or identify malicious code or malware incidents.,What is antivirus software?
+Our Modern World,100,"This term is used to describe objects not traditionally associated with computing that are connected to the internet to provide some additional functionality, but can also collect and transfer data without direct interaction from a user.",What is the Internet of Things?
+Our Modern World,200,This tool provides an extended private network to users encrypting their data and hiding their IP addresses to help protect online privacy.,What is a Virtual Private Network (VPN)?
+Our Modern World,300,Digitally manipulated media that replaces one person's likeness convincingly with that of another.,What is a deepfake?
+Our Modern World,400,This modern approach to gaining access to unauthorized systems and information exploits social media and human psychology rather than trying to find software or network vulnerabilities. ,What is Social Engineering?
+Our Modern World,500,A piece of software or update for an existing system or code that addresses flaws or security weaknesses in the existing system.,What is a Patch?
+Everything Everywhere All at Once,100,This cybersecurity concept involves the property that information or systems are accessible and usable upon demand.,What is Availability?
+Everything Everywhere All at Once,200,This computer science term has apocryphal origins from an incident where a moth was found to be stuck inside the hardware of one of the first computers at Harvard.,What is a bug?
+Everything Everywhere All at Once,300,A malicious computer program that can replicate itself and spread from one computer to another.,What is a virus?
+Everything Everywhere All at Once,400,This term is used describe to a person who attempts to gain unauthorized access to a network or computer system.,What is a hacker?
+Everything Everywhere All at Once,500,A protocol that uses cryptography to allows users to securely send commands to a computer over an unsecured network.,What is Secure Shell (SSH)?

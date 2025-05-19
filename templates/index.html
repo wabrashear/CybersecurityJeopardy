@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            background-color: #4B0119;
+            color: #fff;
+            text-align: center;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px #000000;
+            width: 90%;
+        }
+        th, td {
+            border: 2px solid #444;
+            padding: 30px 10px;
+            height: 45px;
+            width: 20%;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background: #002596;
+            font-size: 2em;
+            color: white;
+        }
+        td {
+            background: linear-gradient(to bottom, #0335cb, #4a90e2);
+            cursor: pointer;
+            font-size: 2em;
+            color: #d7bb05;
+        }
+        td:hover {
+            background-color: #f8fafc;
+        }
+        /* Modal styles */
+        #questionModal {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            color: black;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #000;
+            z-index: 1000;
+        }
+        #modalQuestionText {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        #questionModal button {
+            font-size: 1em;
+            padding: 10px 20px;
+        }
+        td.used {
+            background-color: #a8a3a3 !important;
+            color: #dedcdc !important;
+            cursor: default;
+        }
+        #questionModal {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #0f018a; 
+            color: #ffffff;
+            padding: 60px;
+            border: 6px solid #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 0 40px #000;
+            z-index: 1000;
+            text-align: center;
+            width: 75%;
+            max-width: 900px;
+            font-family: 'Georgia', 'Bookman Old Style', serif;  /* Korinna-style */
+        }
+
+
+        #modalQuestionText {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        #modalResponseText {
+            display: none;
+            font-weight: bold;
+            font-size: 2em;
+            font-family: 'Georgia', 'Bookman Old Style', serif;
+            color: white;
+            margin-top: 30px;
+        }
+
+
+        .button-group {
+            margin-bottom: 15px;
+        }
+
+        .button-group button {
+            font-size: 1.2em;
+            padding: 12px 30px;
+            margin: 0 15px;
+            background-color: #ffd700;
+            border: none;
+            border-radius: 10px;
+            color: #002060;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+
+        .button-group button:hover {
+            background-color: white;
+            color: #002060;
+        }
+        #scoreboard {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .scorebox {
+            background-color: #0335cb;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            font-family: Georgia, serif;
+            box-shadow: 0 0 10px #000;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .scorebox h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .scorebox p {
+            font-size: 3em;  
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+
+        .scorebox button {
+            margin: 5px;
+            font-size: 1.1em;
+            padding: 4px 12px;
+            border-radius: 5px;
+            background-color: #ffd700;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            color: #002060;
+        }
+
+        .scorebox button:hover {
+            background-color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>GenCyber Concepts</th>
+                <th>Realworld Attacks</th>
+                <th>Know Your Terms</th>
+                <th>Our Modern World</th>
+                <th>Everything Everywhere All at Once</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in [100, 200, 300, 400, 500] %}
+            <tr>
+                <td onclick="fetchQuestion('GenCyber Concepts', {{ row }})">{{ row }}</td>
+                <td onclick="fetchQuestion('Realworld Attacks', {{ row }})">{{ row }}</td>
+                <td onclick="fetchQuestion('Know Your Terms', {{ row }})">{{ row }}</td>
+                <td onclick="fetchQuestion('Our Modern World', {{ row }})">{{ row }}</td>
+                <td onclick="fetchQuestion('Everything Everywhere All at Once', {{ row }})">{{ row }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div id="scoreboard" style="margin-top: 30px;">
+        <!-- Participants will be injected here -->
+    </div>
+
+<!-- Jeopardy-style modal -->
+<div id="questionModal">
+    <p id="modalQuestionText"></p>
+
+    <div class="button-group">
+        <button onclick="showResponse()">Show Response</button>
+        <button onclick="closeModal()">Close</button>
+    </div>
+
+    <p id="modalResponseText"></p>
+</div>
+
+
+    <script>
+        const scores = {};
+            let numPlayers = 0;
+
+            window.onload = function () {
+                numPlayers = prompt("How many players or teams?");
+                if (!numPlayers || isNaN(numPlayers) || numPlayers < 1) {
+                    alert("Defaulting to 2 players.");
+                    numPlayers = 2;
+                }
+
+                const scoreboard = document.getElementById("scoreboard");
+                scoreboard.innerHTML = "";
+
+                for (let i = 1; i <= numPlayers; i++) {
+                    const playerName = `Team ${i}`;
+                    scores[playerName] = 0;
+
+                    const playerBox = document.createElement("div");
+                    playerBox.className = "scorebox";
+                    playerBox.innerHTML = `
+                        <h3>${playerName}</h3>
+                        <p id="score-${i}">0</p>
+                        <button onclick="adjustScore(${i}, -100)">-100</button>
+                        <button onclick="adjustScore(${i}, 100)">+100</button>
+                    `;
+                    scoreboard.appendChild(playerBox);
+                }
+            };
+
+            function adjustScore(playerIndex, delta) {
+                const playerName = `Team ${playerIndex}`;
+                scores[playerName] += delta;
+                document.getElementById(`score-${playerIndex}`).textContent = scores[playerName];
+            }
+
+        let lastClickedCell = null;
+        let currentResponse = "";
+
+        function fetchQuestion(category, points) {
+            const selector = `td[onclick="fetchQuestion('${category}', ${points})"]`;
+            lastClickedCell = document.querySelector(selector);
+
+            fetch(`/get_question?category=${encodeURIComponent(category)}&points=${points}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('modalQuestionText').textContent = data.clue;
+                    document.getElementById('modalResponseText').style.display = 'none';
+                    document.getElementById('modalResponseText').textContent = ""; // clear previous response
+                    currentResponse = data.response;
+                    document.getElementById('questionModal').style.display = 'block';
+                });
+        }
+
+        function showResponse() {
+            const responseEl = document.getElementById('modalResponseText');
+            responseEl.textContent = currentResponse;
+            responseEl.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('questionModal').style.display = 'none';
+            if (lastClickedCell) {
+                lastClickedCell.classList.add('used');
+                lastClickedCell.onclick = null;
+            }
+        }
+
+
+    </script>
+</body>
+</html>
